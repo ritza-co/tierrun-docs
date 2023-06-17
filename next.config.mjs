@@ -23,6 +23,18 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
   },
+  rewrites: [
+    {
+      source: '/:path*',
+      has: [
+        {
+          type: 'host',
+          value: 'docs.tier.run',
+        },
+      ],
+      destination: '/:path*',
+    },
+  ],
 }
 
 export default withMDX(nextConfig)
