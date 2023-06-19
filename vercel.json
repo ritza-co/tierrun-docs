@@ -1,8 +1,7 @@
 rewrites() {
   return {
       beforeFiles: [
-          // if the host is `docs.tier.run`,
-          // this rewrite will be applied
+          // if the host is `docs.tier.run`, this rewrite will be applied
           {
               source: '/:path*',
               has: [
