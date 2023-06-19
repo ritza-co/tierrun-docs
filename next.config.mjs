@@ -3,6 +3,7 @@ import { remarkPlugins } from './mdx/remark.mjs'
 import { rehypePlugins } from './mdx/rehype.mjs'
 import { recmaPlugins } from './mdx/recma.mjs'
 import { redirects } from './redirects.mjs'
+import { rewrites } from './rewrites.mjs'
 
 const withMDX = nextMDX({
   options: {
@@ -17,6 +18,9 @@ const withMDX = nextMDX({
 const nextConfig = {
   async redirects() {
     return redirects
+  },
+  async rewrites() {
+    return rewrites
   },
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],

@@ -1,10 +1,5 @@
 export const redirects = [
   {
-    source: '/',
-    destination: '/docs',
-    permanent: false,
-  },
-  {
     source: '/docs/self-hosting/docker',
     destination: 'https://hub.docker.com/u/tierrun',
     permanent: false,
@@ -54,7 +49,19 @@ export const redirects = [
   },
   {
     source: '/system-status',
-    destination: '/',
+    destination: 'https://tier.betteruptime.com/',
+    permanent: false,
+  },
+  // Redirects for the main website links
+  {
+    source: '/releases',
+    destination: 'https://github.com/tierrun/tier/releases',
+    permanent: false,
+  },
+  { source: '/blog', destination: 'https://blog.tier.run', permanent: false },
+  {
+    source: '/issues/new',
+    destination: 'https://github.com/tierrun/tier/issues/new/choose',
     permanent: false,
   },
 ]
