@@ -1,10 +1,5 @@
 export const redirects = [
   {
-    source: '/',
-    destination: '/docs',
-    permanent: false,
-  },
-  {
     source: '/docs/self-hosting/docker',
     destination: 'https://hub.docker.com/u/tierrun',
     permanent: false,
