@@ -1,14 +1,18 @@
-{
-  "rewrites": [
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "docs.tier.run"
-        }
-      ],
-      "destination": "/:path*"
-    }
-  ]
+rewrites() {
+  return {
+      beforeFiles: [
+          // if the host is `docs.tier.run`,
+          // this rewrite will be applied
+          {
+              source: '/:path*',
+              has: [
+                  {
+                      type: 'host',
+                      value: 'docs.acme.com',
+                  },
+              ],
+              destination: '/docs/:path*',
+          },
+      ]
+  }
 }
