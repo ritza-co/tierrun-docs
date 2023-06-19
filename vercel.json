@@ -1,16 +1,14 @@
 {
-  "rewrites": {
-    "beforeFiles": [
-      {
-        "source": "/:path*",
-        "has": [
-          {
-            "type": "host",
-            "value": "docs.acme.com"
-          }
-        ],
-        "destination": "/docs/:path*"
-      }
-    ]
-  }
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "docs.acme.com"
+        }
+      ],
+      "destination": "/docs/:path*"
+    }
+  ]
 }
