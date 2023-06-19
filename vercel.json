@@ -1,17 +1,16 @@
-rewrites() {
-  return {
-      beforeFiles: [
-          // if the host is `docs.tier.run`, this rewrite will be applied
+{
+  "rewrites": {
+    "beforeFiles": [
+      {
+        "source": "/:path*",
+        "has": [
           {
-              source: '/:path*',
-              has: [
-                  {
-                      type: 'host',
-                      value: 'docs.acme.com',
-                  },
-              ],
-              destination: '/docs/:path*',
-          },
-      ]
+            "type": "host",
+            "value": "docs.acme.com"
+          }
+        ],
+        "destination": "/docs/:path*"
+      }
+    ]
   }
 }
