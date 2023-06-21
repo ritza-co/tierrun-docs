@@ -1,54 +1,52 @@
-# Build your own generative AI SaaS with OpenAI, vercel, Stripe and Tier
+# Build a generative AI SaaS with OpenAI, Vercel, Stripe, and Tier
 
-With the advent of OpenAI and GPT4, it's now easier than ever to build your own SaaS that generates content - whether that's marketing copy, tweets, or anything else.
+With the advent of OpenAI and GPT-4, it's now easier than ever to build your own SaaS that generates content - whether that's marketing copy, tweets, or anything else.
 
-But although the **generation** is now easy, productionizing your SaaS app can still be a pain.
+But although **generation** of content is easy, productionizing your SaaS app can still be a pain.
 
-In this tutorial, we'll guide you through building an end-to-end SaaS including a full stack web application with integrated payments and an easy-to-adapt template. You'll use online platforms like Verceland Stripe to do the heavy lifting so you can focus on building the unique parts of your own SaaS.
+This tutorial will guide you through building an end-to-end SaaS, including a full-stack web application with integrated payments and an easy-to-adapt template. You'll use online platforms Vercel and Stripe to do the heavy lifting so you can focus on building the unique parts of your own SaaS.
 
-At the end of this guide, you'll have a ready-to-go SaaS application that generates marketing copy and sells this with customizable subscription plans.
+At the end of the guide, you’ll have a ready-to-go SaaS application that generates marketing copy for your customers, complete with customizable subscription plans.
 
 ![Your running application 2](/images/tutorials/ai-generator-app/im5.png)
 
-We'll also show you how to change the pricing, the content, the front-end, and anything else you need to make it your own.
+We'll cover all the steps required to set up the most important pieces of the app at a high level and where appropriate link to the relevant docs for each of the components. We'll also show you how to change the pricing, content, frontend, and anything else you like to make the application your own.
 
 <Banner>
-What is Tier? Tier is terraform for pricing models. We let you build advanced pricing models, metering, and subscription management in a few lines of configuration.
+What is Tier? Tier is Terraform for pricing models. We let you build advanced pricing models, metering, and subscription management in a few lines of configuration.
 </Banner>
 
 ## Setting up the template
 
-The basic starter version of this template is [on GitHub](https://github.com/tierrun/tier-vercel-openai) and it uses Tier, OpenAI, NextJs (fullstack JS), Vercel (hosting and DB) and Stripe. 
+The basic starter version of this template is [on GitHub](https://github.com/tierrun/tier-vercel-openai) and has all the necessary ingredients for your SaaS app: It uses Tier, OpenAI, Next.js (full stack JavaScript), Vercel (for hosting and database), and Stripe. 
 
-Taken all together, this template has all the necessary ingredients for your SaaS app. This guide will cover all the steps required to set up the most important pieces at a high level and where appropriate link to the relevant docs for each of the components. 
+The advantage of a stack like this is that it covers all the tech fundamentals you need to build and scale a SaaS business, the services it uses offer generous free tiers, and you can deploy your app without having to consult a DevOps engineer. 
 
-The main advantage of a stack such as this is that it covers all the fundamentals required to build and scale a SaaS business from a technology point of view with generous free tiers and without have to consult a DevOps engineers to deploy. 
+Tier adds a layer on top of Stripe so that you can feature gate subscriptions and offer grandfather plans. OpenAI is the most advanced AI-based API provider in the world and their flagship ChatGPT is being used by students everywhere to cheat on their homework. Next.js and Vercel work together to provide the most seamless full-stack web application experience with a huge ecosystem of connectors, libraries, and packages for virtually any use case. Finally, Vercel Postgres is a relatively new service, but it's underpinned by the same Vercel serverless principles allowing you to scale your SQL database without having to manage infrastructure. 
 
-In brief, Tier adds a layer on top of Stripe to improve the capability to feature gate subscription, grandfather plans. OpenAI is the most advanced AI as API provider in the world and their flagship ChatGPT is being used by students all over the world to cheat on their homework. NextJs and Vercel work together hand in glove to provide the most seamless full stack web application experience with a huge ecosystem of connectors, libraries and package for virtually any use case. Finally with the Postgres SQL from Vercel is a relatively new offering but it is underpinned by the same serverless principles allowing you to scale DB without having to manage the infrastructure. 
-
-Here are the basic steps to get started with the repository
+Here are the basic steps to get started with the repository:
 
 1. Install Git if not already installed.
 2. Open a terminal or command prompt.
 3. Navigate to the desired directory.
-4. Clone the repository using **`git clone https://github.com/tierrun/tier-vercel-openai`
+4. Clone the repository using `git clone https://github.com/tierrun/tier-vercel-openai`.
 5. Wait for the cloning process to complete.
 6. Navigate into the cloned repository.
-7. Rename  `.env.example` to `.env.local` 
-8. If there is a **`package.json`** file, run **`npm install`** to install dependencies.
-9. Start the development server with **`npm run dev`**.
+7. Rename `.env.example` to `.env.local`. 
+8. If there is a `package.json` file, run `npm install` to install dependencies.
+9. Start the development server with `npm run dev`.
 
-After doing all of that, the next steps is to configure the services in our stack. 
+Now we can configure the services in our stack. 
 
-### Authentication
+## Authentication
 
-NextAuth come based with the template at the Authentication provider. We will look to provide `Log in with Google` and `Log in with Github` options, the steps below are in brief, [see here](https://next-auth.js.org/providers/github) for more details. 
+NextAuth.js comes with templates for popular authentication providers. We will provide "Log in with Google" and "Log in with Github" options. The steps below are in brief, [see here](https://next-auth.js.org/configuration/providers/oauth) for more details. 
 
 For Google:
 
-1. Go to the Google Developers Console.
+1. Go to the Google Developer Console.
 2. Create a new project or select an existing one.
-3. Navigate to "Credentials" and click "Create Credentials" > "OAuth client ID."
+3. Navigate to "Credentials" and click "Create Credentials" > "OAuth client ID".
 4. Choose "Web application" as the type.
 5. Enter a name and set the authorized JavaScript origins and redirect URIs.
 6. Click "Create" to generate the client ID and secret.
@@ -56,28 +54,28 @@ For Google:
 For GitHub:
 
 1. Go to your GitHub account settings.
-2. Navigate to "Developer settings" > "OAuth Apps" > "New OAuth App."
+2. Navigate to "Developer settings" > "OAuth Apps" > "New OAuth App".
 3. Enter a name, homepage URL, and authorization callback URL.
 4. Click "Register application" to generate the client ID and secret.
 
 Note down the generated client ID and secret for both platforms and add them to the `.env` file.
 
-### OpenAI
+## OpenAI
 
 ![Generate OpenAI keys](/images/tutorials/ai-generator-app/im1.png)
 
 To generate API keys for OpenAI, follow these steps:
 
-1. Go to the OpenAI website (**https://www.openai.com/**) and sign in to your account. If you don't have an account, create one.
+1. Go to the [OpenAI website](https://www.openai.com/) and sign in to your account. If you don't have an account, create one.
 2. Once you are signed in, navigate to the OpenAI Dashboard.
 3. In the Dashboard, click on your username in the top-right corner and select "API Keys" from the dropdown menu.
 4. On the API Keys page, click on the "New Key" button.
 5. Enter a name for your API key to help you identify it later.
-6. Select the appropriate access level for your API key. OpenAI offers two access levels: "Test" and "Production." For development and testing purposes, it is recommended to start with the "Test" access level.
+6. Select the appropriate access level for your API key. OpenAI offers two access levels: "Test" and "Production". For development and testing purposes, it is recommended to start with the "Test" access level.
 7. Click on the "Create API Key" button to generate the key.
 8. Once the key is created, you will see it listed on the API Keys page. Take note of the generated API key.
 
-### Vercel
+## Vercel
 
 ![Get Vercel Key](/images/tutorials/ai-generator-app/im2.png)
 
@@ -89,23 +87,25 @@ To generate API keys for OpenAI, follow these steps:
 5. Choose a suitable name for your database.
 6. Copy the connection details and paste them into `.env`
 
-### Postmark
+## Postmark
 
 ![Get Postmark key](/images/tutorials/ai-generator-app/im3.png)
 
 
-1. Sign in to your Postmark account (**https://account.postmarkapp.com/**) or create a new account if you don't have one.
+1. Sign in to your [Postmark account](https://account.postmarkapp.com/) or create a new account if you don't have one.
 2. In the Postmark dashboard, navigate to the "Templates" section.
 3. Click on "Create Template" to create a new email template.
-4. Give your template a name and specify a subject line for the email. Create two templates, for sign in and get the template id’s and add them to `.env`
+4. Give your template a name and specify a subject line for the email.
+5. Create a second template for sign in.
+6. Get the template IDs and add them to `.env`.
 
-### Tier
+## Tier
 
 **TBC based on access to Tier account (currently in closed beta?)**
 
-### Hello World!
+## Hello World!
 
-After this setup you should be able to launch the app locally on `https://localhost:3000` and see your next unicorn business app loading up. Click on either of the signup button in the main call to action on the page to get started. 
+When you've completed this set up, you should be able to launch the app locally on `https://localhost:3000` and see your app loading. Click on either of the sign-up buttons in the call to action on the page to get started. 
 
 ![Your running application 1](/images/tutorials/ai-generator-app/im4.png)
 
@@ -115,9 +115,9 @@ After this setup you should be able to launch the app locally on `https://localh
 
 ![Tier architecture](/images/tutorials/ai-generator-app/im6.png)
 
-Tier provides an opinionated yet flexible way to implement pricing. It is designed to work from within your app and provide an abstraction layer on top of stripe for anything related to pricing, billing, subscriptions, entitlements, metering and so on. 
+Tier provides an opinionated yet flexible way to implement pricing. It is designed to work from within your app and provide an abstraction layer on top of Stripe for anything related to pricing, billing, subscriptions, entitlements, metering, and so on. 
 
-Normally over time as the business grows or pivots, the logic required to enable all these features can become quite unmanageable burning up development hours on customer side features. With Tier, all elements of pricing operations are brought under one logical entity. With that you have a single source of truth in the `pricing.json` at a given time and when the model shifts the older customers retain access to based on their existing pricing plans while new customers are migrated into the new model in a way that reduces the code to handle metering, entitlements etc. 
+Normally as the business grows or pivots over time, the logic required to enable all these features can become quite unmanageable, burning up development hours on customer-side features. With Tier, all the elements of pricing operations are brought under one logical entity, giving you a single source of truth in `pricing.json` at any given time. When the pricing model shifts, the older customers retain access to the app based on their existing pricing plans while new customers are migrated to the new model in a way that reduces the code to handle metering, entitlements, and other aspects of subscription pricing. 
 
 For the template, this is the starting point:
 
@@ -201,9 +201,9 @@ For the template, this is the starting point:
 }
 ```
 
-There are three plans and three features, with each feature and plan having a set of features associated with it. With this starting point in the project it is quite easy to mix and match the features to create a set that works for your use case. 
+Here we have three plans and three features, and each plan has a set of features associated with it. Now you can mix and match the plans and features to create a set that works for your use case. 
 
-For example to check for access to the a feature for customer, the logic reduces a generalised code block that does not need to change as the plan or feature details are changed.
+For example, to check a customer's access to a feature, the logic is reduced to a generalized code block that does not need to change as the plan or feature details are changed.
 
 ```jsx
 const access = await tier.can(
@@ -213,11 +213,11 @@ const access = await tier.can(
 if (access.ok) {
   // Give access to the feature here
 } else {
-  // Handle restriction and even upselling here.
+  // Handle restriction and upselling here.
 }
 ```
 
-Similarly for the your billing portal you may desire to create a check on the usage and entitlement. 
+Similarly, for your billing portal, you may like to create a feature usage report. 
 
 ```jsx
 await tier.report('org:customer-id-from-your-db',
@@ -230,11 +230,15 @@ await tier.report('org:customer-id-from-your-db',
 );
 ```
 
-Similarly note how different features have differing models associated with them. This can be handled at a granular plan level and allows for close control over the logic of subscription and entitlement without creating any ad-hoc coding patterns as the application evolves. 
+Note how different features have different models associated with them. You can handle this at a granular plan-level, giving you close control over the logic of subscription and entitlement without needing to create any ad hoc coding patterns as the application evolves. 
 
-To implement a simple per-seat pricing model, say $10 per user there's only one tier, and it is technically a usage-based price, because it's based on how many seats are being used. However, unlike something like disk space or requests, the counter is not reset each billing cycle.
+### Implementing different pricing models
 
-We use `"aggregate":"perpetual"` to always charge them based on the most recent usage level, across all billing periods. This way, we only have to update their seat consumption when it changes.
+You might want to begin charging your customers to use your app using a simple, single-tier, per-user model, for example, $10 per user per month.
+
+This model is technically a usage-based price because it's based on how many seats are being used. However, unlike charging for disk space or requests, the counter is not reset each billing cycle.
+
+We use `"aggregate":"perpetual"` to always charge a customer based on the most recent usage level, across all billing periods. This way, we only have to update their seat consumption when it changes.
 
 ```jsx
 {
@@ -253,7 +257,7 @@ We use `"aggregate":"perpetual"` to always charge them based on the most recent 
 }
 ```
 
-For a countable action i.e. number of generated marketing copies or message the simplest approach would be to add in a usage cost on a feature with a fixed amount as a flat rate or as a some tiers to create greater economy of scale for the users. The key part here is that both of these changes are simple changes to `pricing.json` which can then be versioned and grandfathered once the plans are retired. 
+Should you wish to add pricing models to accommodate countable actions, for example, based on the number of marketing copy documents generated, you could add flat-rate or tiered pricing options to `pricing.json`. Pricing options can then be versioned and grandfathered when plans are retired.
 
 Flat pricing:
 
@@ -299,4 +303,4 @@ Tiered Pricing:
 }
 ```
 
-While this blog post serves as a comprehensive guide, it's just the beginning of your SaaS journey. In conclusion, we showed you the steps you'll need to take to turn your SaaS content generator into a fully functional, production-ready application. We highlight important considerations for pricing ops such as entitlements, subscriptions, metering and grandfathers. These steps will ensure that your SaaS application is set up to evolve as your business moves and that the systems of record are always configured automatically.
+While we've shown you the steps to take to turn your SaaS content generator into a fully functional, production-ready application, this is just the beginning of your SaaS journey. Now you can take your application and turn it into your own and Tier will take care of your pricing needs like entitlements, subscriptions, metering, and grandfathering plans to ensure that your SaaS application is set to evolve as your business moves and the systems of record are always configured automatically.
