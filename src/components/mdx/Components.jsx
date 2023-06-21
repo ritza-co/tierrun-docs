@@ -3,6 +3,9 @@ import clsx from 'clsx'
 
 import { Heading } from '@/components/mdx/Heading'
 
+import { authors } from '@/data/authors'
+import Image from 'next/image'
+
 export const a = Link
 export { Button } from '@/components/common/Button'
 export {
@@ -95,5 +98,28 @@ export function Property({ name, type, children }) {
         </dd>
       </dl>
     </li>
+  )
+}
+
+export function BlogHeader({ title, author, date }) {
+  return (
+    <div className="flex flex-col items-center not-prose gap-6 pb-16">
+      <h1 className="text-3xl text-center font-semibold text-l-slate-12 dark:text-d-slate-12">
+        {title}
+      </h1>
+      <div className="flex flex-col items-center gap-2">
+        <div className="flex items-center gap-2">
+          <div className="rounded-full overflow-hidden">
+            <Image
+              src={authors.find((_author) => _author.id === author).avatar}
+              width={20}
+              height={20}
+            />
+          </div>
+          <span>{authors.find((_author) => _author.id === author).name}</span>
+        </div>
+        {date ? <div>{new Date(date).toLocaleDateString()}</div> : <></>}
+      </div>
+    </div>
   )
 }

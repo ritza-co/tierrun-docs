@@ -1,5 +1,5 @@
 export const main = [
   { title: 'Docs', href: '/docs' },
-  { title: 'Blogs', href: 'https://blog.tier.run/' },
+  { title: 'Blog', href: '/blog' },
   // { title: 'Changelogs', href: '/changelogs' },
 ]

@@ -5,6 +5,7 @@ import shiki from 'shiki'
 import { toString } from 'mdast-util-to-string'
 import * as acorn from 'acorn'
 import { slugifyWithCounter } from '@sindresorhus/slugify'
+import remarkFrontmatter from 'remark-frontmatter'
 
 function rehypeParseCodeBlocks() {
   return (tree) => {
@@ -117,6 +118,7 @@ export const rehypePlugins = [
   rehypeShiki,
   rehypeSlugify,
   rehypeMdxTitle,
+  remarkFrontmatter,
   [
     rehypeAddMDXExports,
     (tree) => ({

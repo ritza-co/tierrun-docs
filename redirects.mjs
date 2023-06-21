@@ -58,7 +58,6 @@ export const redirects = [
     destination: 'https://github.com/tierrun/tier/releases',
     permanent: false,
   },
-  { source: '/blog', destination: 'https://blog.tier.run', permanent: false },
   {
     source: '/issues/new',
     destination: 'https://github.com/tierrun/tier/issues/new/choose',

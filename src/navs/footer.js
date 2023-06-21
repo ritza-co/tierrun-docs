@@ -34,7 +34,7 @@ export const footer = [
     links: [
       {
         title: 'Blog',
-        href: 'https://blog.tier.run/',
+        href: '/blog',
       },
       {
         title: 'PriceOps',
