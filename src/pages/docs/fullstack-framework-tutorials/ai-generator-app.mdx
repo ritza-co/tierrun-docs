@@ -13,16 +13,18 @@ At the end of the guide, you’ll have a ready-to-go SaaS application that gener
 We'll cover all the steps required to set up the most important pieces of the app at a high level and where appropriate link to the relevant docs for each of the components. We'll also show you how to change the pricing, content, frontend, and anything else you like to make the application your own.
 
 <Banner>
-What is Tier? Tier is Terraform for pricing models. We let you build advanced pricing models, metering, and subscription management in a few lines of configuration.
+  What is Tier? Tier is Terraform for pricing models. We let you build advanced
+  pricing models, metering, and subscription management in a few lines of
+  configuration.
 </Banner>
 
 ## Setting up the template
 
-The basic starter version of this template is [on GitHub](https://github.com/tierrun/tier-vercel-openai) and has all the necessary ingredients for your SaaS app: It uses Tier, OpenAI, Next.js (full stack JavaScript), Vercel (for hosting and database), and Stripe. 
+The basic starter version of this template is [on GitHub](https://github.com/tierrun/tier-vercel-openai) and has all the necessary ingredients for your SaaS app: It uses Tier, OpenAI, Next.js (full stack JavaScript), Vercel (for hosting and database), and Stripe.
 
-The advantage of a stack like this is that it covers all the tech fundamentals you need to build and scale a SaaS business, the services it uses offer generous free tiers, and you can deploy your app without having to consult a DevOps engineer. 
+The advantage of a stack like this is that it covers all the tech fundamentals you need to build and scale a SaaS business, the services it uses offer generous free tiers, and you can deploy your app without having to consult a DevOps engineer.
 
-Tier adds a layer on top of Stripe so that you can feature gate subscriptions and offer grandfather plans. OpenAI is the most advanced AI-based API provider in the world and their flagship ChatGPT is being used by students everywhere to cheat on their homework. Next.js and Vercel work together to provide the most seamless full-stack web application experience with a huge ecosystem of connectors, libraries, and packages for virtually any use case. Finally, Vercel Postgres is a relatively new service, but it's underpinned by the same Vercel serverless principles allowing you to scale your SQL database without having to manage infrastructure. 
+Tier adds a layer on top of Stripe so that you can feature gate subscriptions and offer grandfather plans. OpenAI is the most advanced AI-based API provider in the world and their flagship ChatGPT is being used by students everywhere to cheat on their homework. Next.js and Vercel work together to provide the most seamless full-stack web application experience with a huge ecosystem of connectors, libraries, and packages for virtually any use case. Finally, Vercel Postgres is a relatively new service, but it's underpinned by the same Vercel serverless principles allowing you to scale your SQL database without having to manage infrastructure.
 
 Here are the basic steps to get started with the repository:
 
@@ -32,15 +34,15 @@ Here are the basic steps to get started with the repository:
 4. Clone the repository using `git clone https://github.com/tierrun/tier-vercel-openai`.
 5. Wait for the cloning process to complete.
 6. Navigate into the cloned repository.
-7. Rename `.env.example` to `.env.local`. 
+7. Rename `.env.example` to `.env.local`.
 8. If there is a `package.json` file, run `npm install` to install dependencies.
 9. Start the development server with `npm run dev`.
 
-Now we can configure the services in our stack. 
+Now we can configure the services in our stack.
 
 ## Authentication
 
-NextAuth.js comes with templates for popular authentication providers. We will provide "Log in with Google" and "Log in with Github" options. The steps below are in brief, [see here](https://next-auth.js.org/configuration/providers/oauth) for more details. 
+NextAuth.js comes with templates for popular authentication providers. We will provide "Log in with Google" and "Log in with Github" options. The steps below are in brief, [see here](https://next-auth.js.org/configuration/providers/oauth) for more details.
 
 For Google:
 
@@ -79,7 +81,6 @@ To generate API keys for OpenAI, follow these steps:
 
 ![Get Vercel Key](/images/tutorials/ai-generator-app/im2.png)
 
-
 1. In the Vercel dashboard, create a new project or select an existing project.
 2. Navigate to the "Database" section in the project settings.
 3. Click on "Create Database" to create a new database.
@@ -91,7 +92,6 @@ To generate API keys for OpenAI, follow these steps:
 
 ![Get Postmark key](/images/tutorials/ai-generator-app/im3.png)
 
-
 1. Sign in to your [Postmark account](https://account.postmarkapp.com/) or create a new account if you don't have one.
 2. In the Postmark dashboard, navigate to the "Templates" section.
 3. Click on "Create Template" to create a new email template.
@@ -101,11 +101,16 @@ To generate API keys for OpenAI, follow these steps:
 
 ## Tier
 
-**TBC based on access to Tier account (currently in closed beta?)**
+1. Go to Stripe Dashboard and under 'Developers' generate a secret key (in test mode)
+2. Install the [Tier CLI](https://github.com/tierrun/tier/releases)
+3. In a new terminal window, run `tier connect`. This will create a link to open in a browser and authorise Tier to make changes to the Stripe account
+4. Download the JSON config of this [pricing model](https://model.tier.run/clhdvg0ab01i7kef5dy920jm6)
+5. Save the file, Execute `tier push path_to_filename` to push the model to Stripe
+6. Log into the Stripe Dashboard, you will now see new product plans as per the pricing model
 
 ## Hello World!
 
-When you've completed this set up, you should be able to launch the app locally on `https://localhost:3000` and see your app loading. Click on either of the sign-up buttons in the call to action on the page to get started. 
+When you've completed this set up, you should be able to launch the app locally on `https://localhost:3000` and see your app loading. Click on either of the sign-up buttons in the call to action on the page to get started.
 
 ![Your running application 1](/images/tutorials/ai-generator-app/im4.png)
 
@@ -115,9 +120,9 @@ When you've completed this set up, you should be able to launch the app locally 
 
 ![Tier architecture](/images/tutorials/ai-generator-app/im6.png)
 
-Tier provides an opinionated yet flexible way to implement pricing. It is designed to work from within your app and provide an abstraction layer on top of Stripe for anything related to pricing, billing, subscriptions, entitlements, metering, and so on. 
+Tier provides an opinionated yet flexible way to implement pricing. It is designed to work from within your app and provide an abstraction layer on top of Stripe for anything related to pricing, billing, subscriptions, entitlements, metering, and so on.
 
-Normally as the business grows or pivots over time, the logic required to enable all these features can become quite unmanageable, burning up development hours on customer-side features. With Tier, all the elements of pricing operations are brought under one logical entity, giving you a single source of truth in `pricing.json` at any given time. When the pricing model shifts, the older customers retain access to the app based on their existing pricing plans while new customers are migrated to the new model in a way that reduces the code to handle metering, entitlements, and other aspects of subscription pricing. 
+Normally as the business grows or pivots over time, the logic required to enable all these features can become quite unmanageable, burning up development hours on customer-side features. With Tier, all the elements of pricing operations are brought under one logical entity, giving you a single source of truth in `pricing.json` at any given time. When the pricing model shifts, the older customers retain access to the app based on their existing pricing plans while new customers are migrated to the new model in a way that reduces the code to handle metering, entitlements, and other aspects of subscription pricing.
 
 For the template, this is the starting point:
 
@@ -201,9 +206,49 @@ For the template, this is the starting point:
 }
 ```
 
-Here we have three plans and three features, and each plan has a set of features associated with it. Now you can mix and match the plans and features to create a set that works for your use case. 
+Pricing models above comprise of two major building blocks, Plans and Features. A feature is a set of functionality bundle that provides some tangible value to the customer. For e.g. The ability to generate some marketing content is the feature in our app. Plans are a collection of features that define the bulling frequency of the plan.
 
-For example, to check a customer's access to a feature, the logic is reduced to a generalized code block that does not need to change as the plan or feature details are changed.
+This JSON represents a pricing plan structure with different tiers and features. Let's break it down:
+
+The top-level object has a key called "plans" which contains multiple pricing plans as its values. Each pricing plan is identified by a key that starts with "plan:" followed by the plan name and a version number.
+
+The first plan is called "Free" and has the key "plan:free@0". It has two features: "aicopy" and "base". The "aicopy" feature has a mode set to "volume" and a single tier with an "upto" value of 1. The "base" feature has a value of 0.
+
+The second plan is called "Startup" and has the key "plan:startup@0". It has three features: "aicopy", "base", and "extraaicopy". The "aicopy" feature has a mode set to "volume" and a single tier with an "upto" value of 4. The "base" feature has a value of 2000. The "extraaicopy" feature has a title set to "AI Generated Extra - Copy", a mode set to "volume", and a single tier with a "price" value of 500.
+
+The third plan is called "Business" and has the key "plan:business@0". It has three features: "aicopy", "base", and "extraaicopy". The "aicopy" feature has a mode set to "volume" and a single tier with an "upto" value of 10 and a "base" value of 0. The "base" feature has a value of 4000. The "extraaicopy" feature has a mode set to "volume" and a single tier with a "price" value of 400.
+
+Overall, this JSON represents a hierarchical structure of pricing plans, with each plan having different features and tiers defining the pricing for those features.
+
+Here we have three plans and three features, and each plan has a set of features associated with it. Now you can mix and match the plans and features to create a set that works for your use case.
+
+To change the JSON and create different features and plans with versions, you can follow these steps:
+
+1. To create a new plan, add a new key-value pair to the "plans" object. The key should follow the `"plan:{name}@{version}"` format, where you replace `"{name}"` with the name of the plan and `"{version}"` with the version number. For example, if you want to create a plan called "Pro" with version 1, the key would be "plan:pro@1".
+
+2. Set the "title" for the new plan by adding a "title" key inside the plan object and assigning it the desired value. For example, if the new plan is "Pro," you would add the following line inside the plan object: "title": "Pro".
+
+3. Add the desired features to the new plan. Inside the plan object, add a "features" object. Each feature is represented by a key-value pair, where the key represents the feature and the value contains its properties.
+
+4. Customize the properties for each feature. Each feature should have a unique key inside the "features" object. You can set properties such as "title," "mode," and "tiers" for each feature. Modify the values according to your needs.
+
+5. Save the changes and execute `tier push path_to_filename` to push the plans to stripe
+
+6. Repeat steps 1-5 for each new plan or feature you want to create. Remember to use unique keys for each plan and feature to avoid conflicts.
+
+By following these steps, you can modify the existing JSON to create different features and plans with versions. Make sure to maintain the overall structure and adhere to the proper syntax of JSON while making changes.
+
+Now, any real product will have changes to its priciing model it is quite. For instance, we added the Pro plan as per above and then we can run simple migration from all customers on the startup plan.
+
+```jsx
+customers.map(customer => {
+	await tier.subscribe(`org:${customer.id}`,
+		features: 'plan:pro@1' // or it can be an array of feature-ids,
+	);
+})
+```
+
+Note that it is completly possible to have customers on older plans. This allows of experimentation on the commercial side without changes to the core app business logic. For example, to check a customer's access to a feature, the logic is reduced to a generalized code block that does not need to change as the plan or feature details are changed.
 
 ```jsx
 const access = await tier.can(
@@ -217,7 +262,7 @@ if (access.ok) {
 }
 ```
 
-Similarly, for your billing portal, you may like to create a feature usage report. 
+Similarly, for your billing portal, you may like to create a feature usage report.
 
 ```jsx
 await tier.report('org:customer-id-from-your-db',
@@ -230,7 +275,7 @@ await tier.report('org:customer-id-from-your-db',
 );
 ```
 
-Note how different features have different models associated with them. You can handle this at a granular plan-level, giving you close control over the logic of subscription and entitlement without needing to create any ad hoc coding patterns as the application evolves. 
+Note how different features have different models associated with them. You can handle this at a granular plan-level, giving you close control over the logic of subscription and entitlement without needing to create any ad hoc coding patterns as the application evolves.
 
 ### Implementing different pricing models
 
@@ -303,4 +348,67 @@ Tiered Pricing:
 }
 ```
 
+## Change the AI - Prompt Engineering
+
+Startups are tricky business and it is almost certain that at some point you will need to pivot into another business model. Say instead of targetting marketers, you decide sales people would be a better fit.
+
+The main way to make the changes would to open the frontend would be to edit this react Generate component in this `src/components/app/GenerateSection.tsx`. To change the backend - open `src/app/api/generate/route.ts` and change the prompt to this:
+
+```javascript
+const prompt = You are a sales expert and a customer approaches you to write a very short and very interesting sales copy for him or her. They want a sales copy on the topic of \"${input}\".\n\nThis is the short sales copy you came up with:\n\n;
+```
+
+Since most of our revenue comes from generating Sales copies, we might even want to enable users to generate multiple copies so they can find the right version for them in a much simpler way. To get multiple outputs from the OpenAI API, you can modify the `generateSalesCopyStream` function as follows:
+
+```javascript
+const generateSalesCopyStream = async (input: string) => {
+  const prompt = `You are a sales expert and a customer approaches you to write a very short and very interesting sales copy for him or her. They want a sales copy on the topic of \"${input}\".\n\nThis is the short sales copy you came up with:\n\n`
+
+  const payload: OpenAIStreamPayload = {
+    model: 'text-davinci-003',
+    prompt,
+    temperature: 0.85,
+    max_tokens: 100,
+    top_p: 1,
+    frequency_penalty: 0,
+    presence_penalty: 0,
+    stream: true,
+    n: 5, // Set the desired number of outputs
+  }
+
+  const stream = await OpenAIStream(payload)
+
+  return stream
+}
+```
+
+Here are some of the parameters you can adjust:
+
+model: Specify the model you want to use. You can try different models to see which one performs best for your sales copy generation task.
+
+temperature: Controls the randomness of the generated output. Higher values (e.g., 0.85) make the output more diverse, while lower values (e.g., 0.2) make it more focused and deterministic.
+
+max_tokens: Sets the maximum number of tokens in the generated output. You can adjust this value based on the desired length of your sales copy.
+
+top_p: Controls the diversity of the generated output by using the nucleus sampling technique. Higher values (e.g., 1) allow more diverse and varied outputs.
+
+frequency_penalty: Adjusts the penalty for repeating similar phrases in the generated output. You can increase this value to reduce repetition.
+
+presence_penalty: Controls the penalty for generating output unrelated to the input. Higher values (e.g., 0.6) make the output more focused on the input topic.
+
+n: Specifies the number of outputs you want from the API. Set it to a value greater than 1 to get multiple outputs.
+
+Feel free to experiment with these settings to achieve the desired results for your sales copy generation.
+
+## Deployment with Vercel
+
+1. Install the vercel client CLI using `npm install -g vercel` and login via `vercel login`
+2. Build the project via `npm run build` which will will create an optimized version of your project in the .next directory.
+3. Deploy via the command `vercel`. By default, Vercel assigns a subdomain to your project (e.g., https://your-project-name.vercel.app).
+4. Login to your Vercel account and now make all the environment variable changes as per `src/env.mjs` to make blip production ready
+
 While we've shown you the steps to take to turn your SaaS content generator into a fully functional, production-ready application, this is just the beginning of your SaaS journey. Now you can take your application and turn it into your own and Tier will take care of your pricing needs like entitlements, subscriptions, metering, and grandfathering plans to ensure that your SaaS application is set to evolve as your business moves and the systems of record are always configured automatically.
+
+```
+
+```
