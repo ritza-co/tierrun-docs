@@ -47,6 +47,10 @@ export const navigation = [
         title: 'Flat rate - NextJS',
         href: '/docs/fullstack-framework-tutorials/flat-rate',
       },
+      {
+        title: 'AI content generation application',
+        href: '/docs/fullstack-framework-tutorials/ai-generator-app',
+      },
     ],
   },
   {
