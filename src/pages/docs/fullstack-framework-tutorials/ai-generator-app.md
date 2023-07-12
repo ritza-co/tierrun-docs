@@ -122,7 +122,7 @@ When you've completed this set up, you should be able to launch the app locally 
 
 Tier provides an opinionated yet flexible way to implement pricing. It is designed to work from within your app and provide an abstraction layer on top of Stripe for anything related to pricing, billing, subscriptions, entitlements, metering, and so on.
 
-Normally as the business grows or pivots over time, the logic required to enable all these features can become quite unmanageable, burning up development hours on customer-side features. With Tier, all the elements of pricing operations are brought under one logical entity, giving you a single source of truth in `pricing.json` at any given time. When the pricing model shifts, the older customers retain access to the app based on their existing pricing plans while new customers are migrated to the new model in a way that reduces the code to handle metering, entitlements, and other aspects of subscription pricing.
+Normally as a business grows or pivots over time, the logic required to enable all these aspects of payment processing can become quite unmanageable, burning up development hours on customer-side features. With Tier, all the elements of pricing operations are brought under one logical entity, giving you a single source of truth in `pricing.json` at any given time. When the pricing model shifts, the older customers retain access to the app based on their existing pricing plans while new customers are migrated to the new model in a way that reduces the code to handle metering, entitlements, and other aspects of subscription pricing.
 
 For the template, this is the starting point:
 
@@ -206,7 +206,7 @@ For the template, this is the starting point:
 }
 ```
 
-The pricing models here include two major building blocks: Plans and Features. A feature is a set of functionality that provides some tangible value to the customer, for example, the ability to generate marketing content is the feature in our app. Plans are a collection of features that define the billing frequency.
+The pricing models here include two major building blocks: Plans and features. A feature is a set of functionality that provides some tangible value to the customer, for example, the ability to generate marketing content is the feature in our app. Plans are a collection of features that define the billing frequency.
 
 This JSON represents a pricing plan structure with different tiers and features. Let's break it down:
 
@@ -218,7 +218,7 @@ The second plan is called "Startup" and has the key `"plan:startup@0"`. The Star
 
 The third plan is called "Business" and has the key `"plan:business@0"`. The Business plan has the same three features as the Startup plan: `"aicopy"`, `"base"`, and `"extraaicopy"`, but the features have different values. The `"aicopy"` feature has `"mode"` set to `"volume"` and a single tier with an `"upto"` value of `10` and a `"base"` value of `0`. The `"base"` feature has a `"base"` value of `4000`. The `"extraaicopy"` feature has `"mode"` set to `"volume"` and a single tier with a `"price"` value of `400`.
 
-Overall, this JSON represents a hierarchical structure of pricing plans, with each plan having different features and tiers defining the pricing for those features. This is a fairly mature and complicated volumed based graduated pricing system and with Tier's primitive expressive JSON it can be modelled in only a few lines, verisoned for the future and include entitlements checks at the code level.
+Overall, this JSON represents a hierarchical structure of pricing plans, with each plan having different features and tiers defining the pricing for those features. This is a fairly mature and complicated volumed-based graduated pricing system and with Tier's primitive expressive JSON it can be modeled in only a few lines, versioned for the future, and include entitlements checks at the code level.
 
 ### Customizing your plans
 
@@ -254,9 +254,9 @@ customers.map(customer => {
 
 ### Feature reporting
 
- You might have longer-standing customers on older plans to allow you to experiment with pricing without changes to the app's core business logic.
+You might have longer-standing customers on older plans to allow you to experiment with pricing without changes to the app's core business logic.
 
- If you would like to check a customer's access to a feature, the logic is reduced to a generalized code block that does not need to change as the plan or feature details are changed.
+If you would like to check a customer's access to a feature, the logic is reduced to a generalized code block that does not need to change as the plan or feature details are changed.
 
 ```jsx
 const access = await tier.can(
@@ -355,53 +355,53 @@ Tiered Pricing:
 ```
 
 
-### Importing Dependencies
+### Importing dependencies
 
-At the beginning of the Generate component, we import the necessary dependencies: react, useEffect, useState, and the custom Button component from @/components/ui/Button. These dependencies are essential for building the functionality and user interface of the component.
+At the beginning of the `Generate` component, we import the necessary dependencies: React, `useEffect`, `useState`, and the custom button component from `@/components/ui/Button`. These dependencies are essential for building the functionality and user interface of the component.
 
-### Initializing State Variables
+### Initializing state variables
 
-Next, we initialize the state variables used in the Generate component. These state variables are crucial for managing the component's dynamic behavior and storing user input and generated suggestions. The state variables include input, error, suggestion, loading, and usedQuota.
+Next, we initialize the state variables used in the `Generate` component. These state variables are crucial for managing the component's dynamic behavior and storing user input and generated suggestions. The state variables include `input`, `error`, `suggestion`, `loading`, and `usedQuota`.
 
-### Implementing Character Limit Validation
+### Implementing character limit validation
 
-To ensure that the user's input doesn't exceed the character limit, we utilize the useEffect hook. This hook monitors changes in the input state variable and triggers a validation check. If the length of the input exceeds 100 characters, we set the error state to true. This enables us to display an error message and prevent the user from submitting the form.
+To ensure that the user's input doesn't exceed the character limit, we use the `useEffect` hook. This hook monitors changes in the input state variable and triggers a validation check. If the length of the input exceeds 100 characters, we set the `error` state to `true`. This enables us to display an error message and prevent the user from submitting the form.
 
-### Saving User Suggestions
+### Saving user suggestions
 
-The saveSuggestion function is responsible for saving user suggestions. It is called within the submit function, which we'll discuss in the next step. The saveSuggestion function makes a POST request to the /api/save-suggestion endpoint, sending the suggestion and input as JSON data in the request body. Upon receiving the response, we check if it's successful (res.ok) and update the usedQuota state variable accordingly. This ensures that the user's quota is updated after successfully saving a suggestion.
+The `saveSuggestion` function is responsible for saving user suggestions. It is called within the `submit` function, which we'll discuss in the next step. The `saveSuggestion` function makes a POST request to the `/api/save-suggestion` endpoint, sending the suggestion and input as JSON data in the request body. On receiving the response, we check if it's successful (`res.ok`) and update the `usedQuota` state variable accordingly. This ensures that the user's quota is updated after successfully saving a suggestion.
 
-### Handling Form Submission
+### Handling form submission
 
-The submit function is triggered when the user clicks the "Generate marketing copy" button. Within this function, we first reset the suggestion state variable to an empty string. We then check the length of the input to ensure it doesn't exceed the character limit. If it does, we set the error state to true, displaying an error message to the user. Otherwise, we set the loading state to true to indicate that the copy generation process is in progress.
+The `submit` function is triggered when the user clicks the "Generate marketing copy" button. Within this function, we first reset the `suggestion` state variable to an empty string. We then check the length of the input to ensure it doesn't exceed the character limit. If it does, we set the `error` state to `true`, displaying an error message to the user. Otherwise, we set the `loading` state to `true` to indicate that the copy-generation process is in progress.
 
-We make a POST request to the /api/generate endpoint, sending the input and userId (from the user prop) as JSON data in the request body. After validating the response's success (res.ok), we obtain a ReadableStream containing the generated copy. We read the stream using a while loop, decoding the stream's chunks and updating the suggestion state with each chunk. Additionally, we concatenate the chunks into the finishedCopy string to save the complete suggestion later.
+We make a POST request to the `/api/generate` endpoint, sending the input and user ID (from the user prop) as JSON data in the request body. After validating the success of the response (`res.ok`), we get a `ReadableStream` containing the generated copy. We read the stream using a while loop, decoding the stream's chunks and updating the `suggestion` state with each chunk. Additionally, we concatenate the chunks into the `finishedCopy` string to save the complete suggestion later.
 
-Finally, we call the saveSuggestion function, passing the finishedCopy and input as parameters. This ensures that the suggestion is saved after it has been fully generated.
+Finally, we call the `saveSuggestion` function, passing the `finishedCopy` and `input` as parameters. This ensures that the suggestion is saved after it has been fully generated.
 
-### Displaying User Greetings
+### Displaying user greetings
 
 Within the JSX markup, we display a greeting to the user. We use the user prop to access the user's name and conditionally render it within a span element. This provides a personalized greeting to enhance the user experience.
 
-### Managing Copy Limits
+### Managing copy limits
 
-Based on the user's quota usage, we display either the remaining copy count or an upgrade option. If the usedQuota is less than the user's quota limit (user?.limit?.limit), we display the remaining copy count as ${usedQuota}/${user?.limit.limit} copy remaining. Otherwise, if the user has exceeded their quota, we display a message indicating the limit has been reached and offer an upgrade option. This provides transparency to the user about their copy usage and encourages them to consider upgrading for additional copies.
+Based on the user's quota usage, we display either the remaining copy count or an upgrade option. If the `usedQuota` is less than the user's quota limit (`user?.limit?.limit`), we display the remaining copy count as `${usedQuota}/${user?.limit.limit}` copy remaining. Otherwise, if the user has exceeded their quota, we display a message indicating the limit has been reached and offer an upgrade option. This provides transparency to the user about their copy usage and encourages them to consider upgrading for additional copies.
 
-### Implementing Input Field for Prompt
+### Implementing input field for prompt
 
-The input field allows the user to enter their marketing prompt. It is implemented using a textarea element. The value of the textarea is bound to the input state variable, ensuring that it reflects the user's input. The onChange event handler updates the input state whenever the user types or modifies the input.
+The input field allows the user to enter their marketing prompt. It is implemented using a `textarea` element. The value of `textarea` is bound to the `input` state variable, ensuring that it reflects the user's input. The `onChange` event handler updates the `input` state whenever the user types or modifies the input.
 
-### Displaying Character Length Indicator
+### Displaying character length indicator
 
-To provide feedback to the user regarding the character count of their input, we display a character length indicator. This indicator is implemented as a div element with a dynamic CSS class, which changes the color based on the length of the input. The character count is displayed as ${input.length}/100 remaining. This allows the user to track their input's length and stay within the character limit.
+To provide feedback to the user regarding the character count of their input, we display a character length indicator. This indicator is implemented as a `div` element with a dynamic CSS class, which changes the color based on the length of the input. The character count is displayed as `${input.length}/100` remaining. This allows the user to track the length of their input and stay within the character limit.
 
-### Handling Error Messages
+### Handling error messages
 
-In case the user exceeds the character limit, we display an error message to notify them of the issue. The error message is conditionally rendered using the error state variable. If error is true, we display a p element with the text "Character limit exceeded" in red color. This provides immediate feedback to the user and helps them rectify the issue.
+In case the user exceeds the character limit, we display an error message to notify them of the issue. The error message is conditionally rendered using the `error` state variable. If `error` is `true`, we display a `p` element with the text "Character limit exceeded" in red. This provides immediate feedback to the user so that they can fix the issue.
 
-### Implementing Output Field for Marketing Copy
+### Implementing output field for marketing copy
 
-The output field is where the generated marketing copy is displayed to the user. It is implemented as a div element with a fixed height and a border. If the suggestion state variable is not empty, we render a p element inside the div with the content of the suggestion. Otherwise, we render a default message using an h3 element. This ensures that the user is informed about where the generated marketing copy will appear and provides a placeholder message until the copy is generated.
+The output field is where the generated marketing copy is displayed to the user. It is implemented as a `div` element with a fixed height and a border. If the suggestion state variable is not empty, we render a `p` element inside the `div` with the content of the suggestion. Otherwise, we render a default message using an `h3` element. This ensures that the user is informed about where the generated marketing copy will appear and provides a placeholder message until the copy is generated.
 
 ## Change the AI prompt
 
